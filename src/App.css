@@ -252,7 +252,7 @@ nav ul li a:hover::after {
   margin-top: 0.25rem;
 }
 
-/* Results Section */
+/* Results Section
 .results-section {
   background-color: white;
 }
@@ -452,7 +452,7 @@ nav ul li a:hover::after {
 
 .step.completed .step-label {
   color: #10b981;
-}
+} */
 
 /* Form Steps */
 .form-step {
