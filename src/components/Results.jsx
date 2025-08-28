@@ -1,6 +1,10 @@
-// components/Results.js
-import React, { useState } from 'react';
+// components/Results.jsx
+import React, { useState, useRef } from 'react';
+import { studentDatabase } from '../data/studentDatabase';
 import resultImage from '../assets/5.jpg';
+import { FaPrint, FaDownload, FaArrowLeft, FaArrowRight, FaSearch } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const Results = () => {
   const [exam, setExam] = useState('');
@@ -8,209 +12,70 @@ const Results = () => {
   const [rollNo, setRollNo] = useState('');
   const [resultData, setResultData] = useState(null);
   const [showResult, setShowResult] = useState(false);
-  const [step, setStep] = useState(1); // 1: select exam, 2: select course, 3: enter roll no
+  const [step, setStep] = useState(1);
+  const resultRef = useRef();
 
-  // Available courses at Paradise University Pakistan
   const universityCourses = {
-    "BS": [
-      "Computer Science", 
-      "Software Engineering", 
-      "Electrical Engineering",
-      "Business Administration",
-      "Psychology",
-      "Economics"
-    ],
-    "BBA": [
-      "Finance",
-      "Marketing",
-      "Human Resource Management",
-      "Supply Chain Management"
-    ],
-    "MS": [
-      "Computer Science",
-      "Data Science",
-      "Electrical Engineering",
-      "Business Administration"
-    ],
-    "MPhil": [
-      "Education",
-      "Psychology",
-      "Economics",
-      "Literature"
-    ],
-    "MBA": [
-      "Executive MBA",
-      "Finance",
-      "Marketing",
-      "Human Resources"
-    ],
-    "PhD": [
-      "Computer Science",
-      "Electrical Engineering",
-      "Business Administration",
-      "Education",
-      "Psychology"
-    ]
-  };
-
-  // Sample student data with course information
-  const studentDatabase = {
-    "SPS2023001": {
-      name: "Anum Nazeer",
-      course: "BS Computer Science",
-      class: "Semester 6",
-      midterm: {
-        english: { obtained: 85, max: 100 },
-        programming: { obtained: 92, max: 100 },
-        algorithms: { obtained: 88, max: 100 },
-        database: { obtained: 90, max: 100 },
-        calculus: { obtained: 81, max: 100 }
-      },
-      annual: {
-        english: { obtained: 89, max: 100 },
-        programming: { obtained: 95, max: 100 },
-        algorithms: { obtained: 91, max: 100 },
-        database: { obtained: 93, max: 100 },
-        calculus: { obtained: 87, max: 100 }
-      }
-    },
-    "SPS2023002": {
-      name: "Komal Fatima",
-      course: "BBA Finance",
-      class: "Semester 4",
-      midterm: {
-        accounting: { obtained: 92, max: 100 },
-        economics: { obtained: 85, max: 100 },
-        finance: { obtained: 89, max: 100 },
-        management: { obtained: 94, max: 100 },
-        statistics: { obtained: 88, max: 100 }
-      },
-      annual: {
-        accounting: { obtained: 95, max: 100 },
-        economics: { obtained: 89, max: 100 },
-        finance: { obtained: 92, max: 100 },
-        management: { obtained: 97, max: 100 },
-        statistics: { obtained: 91, max: 100 }
-      }
-    },
-    "SPS2023003": {
-      name: "Hira Ali",
-      course: "MS Data Science",
-      class: "Semester 2",
-      midterm: {
-        machine_learning: { obtained: 75, max: 100 },
-        statistics: { obtained: 72, max: 100 },
-        data_mining: { obtained: 85, max: 100 },
-        python: { obtained: 80, max: 100 },
-        visualization: { obtained: 78, max: 100 }
-      },
-      annual: {
-        machine_learning: { obtained: 82, max: 100 },
-        statistics: { obtained: 78, max: 100 },
-        data_mining: { obtained: 88, max: 100 },
-        python: { obtained: 85, max: 100 },
-        visualization: { obtained: 80, max: 100 }
-      }
-    },
-    "SPS2023004": {
-      name: "Ali Ahmed",
-      course: "PhD Computer Science",
-      class: "Year 2",
-      midterm: {
-        research_methodology: { obtained: 88, max: 100 },
-        advanced_algorithms: { obtained: 85, max: 100 },
-        thesis_progress: { obtained: 90, max: 100 }
-      },
-      annual: {
-        research_methodology: { obtained: 92, max: 100 },
-        advanced_algorithms: { obtained: 89, max: 100 },
-        thesis_progress: { obtained: 95, max: 100 }
-      }
-    }
+    "BS": ["Computer Science", "Software Engineering", "Electrical Engineering", "Business Administration", "Psychology", "Economics"],
+    "BBA": ["Finance", "Marketing", "Human Resource Management", "Supply Chain Management"],
+    "MS": ["Computer Science", "Data Science", "Electrical Engineering", "Business Administration"],
+    "MPhil": ["Education", "Psychology", "Economics", "Literature"],
+    "MBA": ["Executive MBA", "Finance", "Marketing", "Human Resources"],
+    "PhD": ["Computer Science", "Electrical Engineering", "Business Administration", "Education", "Psychology"]
   };
 
   const handleExamSelect = () => {
-    if (!exam) {
-      alert('Please select an examination');
-      return;
-    }
+    if (!exam) { alert('Please select an examination'); return; }
     setStep(2);
   };
 
   const handleCourseSelect = () => {
-    if (!course) {
-      alert('Please select your course');
-      return;
-    }
+    if (!course) { alert('Please select your course'); return; }
     setStep(3);
   };
 
   const checkResult = () => {
-    if (!rollNo) {
-      alert('Please enter roll number');
-      return;
-    }
-    
+    if (!rollNo) { alert('Please enter roll number'); return; }
     const student = studentDatabase[rollNo];
-    
-    if (!student) {
-      alert('Student not found. Please check roll number and try again.');
-      return;
-    }
-    
-    // Check if the student's course matches the selected course
-    if (student.course !== course) {
-      alert(`Roll number does not belong to ${course} program.`);
-      return;
-    }
-    
-    // Get the selected exam results
+    if (!student) { alert('Student not found. Please check roll number and try again.'); return; }
+    if (student.course !== course) { alert(`Roll number does not belong to ${course} program.`); return; }
+
     const examResults = student[exam];
-    
     let totalObtained = 0;
     let totalMax = 0;
     const subjectResults = [];
-    
+
     for (const subject in examResults) {
       const marks = examResults[subject];
       totalObtained += marks.obtained;
       totalMax += marks.max;
-      
-      const grade = calculateGrade(marks.obtained / marks.max * 100);
-      
-      // Format subject name for display
-      const subjectName = subject.split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-      
-      subjectResults.push({
-        subject: subjectName,
-        obtained: marks.obtained,
-        max: marks.max,
-        grade: grade
-      });
+      const grade = calculateGrade((marks.obtained / marks.max) * 100);
+      const subjectName = subject.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      subjectResults.push({ subject: subjectName, obtained: marks.obtained, max: marks.max, grade });
     }
-    
-    // Calculate overall percentage and grade
-    const percentage = (totalObtained / totalMax * 100).toFixed(2);
+
+    const percentage = ((totalObtained / totalMax) * 100).toFixed(2);
     const overallGrade = calculateGrade(percentage);
-    
+
     setResultData({
       studentInfo: {
         name: student.name,
-        rollNo: rollNo,
+        rollNo,
         course: student.course,
-        class: student.class
+        class: student.class,
+        examType: exam === 'midterm' ? 'Mid-Term Examination 2023' : 'Annual Examination 2023'
       },
       subjectResults,
       totalMarks: `${totalObtained}/${totalMax}`,
       percentage,
-      overallGrade
+      overallGrade,
+      totalObtained,
+      totalMax
     });
-    
+
     setShowResult(true);
   };
-  
+
   const calculateGrade = (percentage) => {
     if (percentage >= 90) return 'A+';
     if (percentage >= 80) return 'A';
@@ -230,7 +95,69 @@ const Results = () => {
     setStep(1);
   };
 
-  // Step indicator component
+  const handlePrint = () => {
+    const printContent = resultRef.current;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContent.innerHTML;
+    window.print();
+    document.body.innerHTML = originalContents;
+    window.location.reload();
+  };
+
+  const downloadPDF = () => {
+    if (!resultData) return;
+    const doc = new jsPDF();
+
+    // Header
+    doc.setFontSize(20);
+    doc.setTextColor(40, 40, 150);
+    doc.text('PARADISE UNIVERSITY PAKISTAN', 105, 20, { align: 'center' });
+    doc.setFontSize(16);
+    doc.setTextColor(80, 80, 80);
+    doc.text('OFFICIAL EXAMINATION RESULT', 105, 30, { align: 'center' });
+    doc.setFontSize(14);
+    doc.text(resultData.studentInfo.examType, 105, 40, { align: 'center' });
+
+    // Student Info
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Name: ${resultData.studentInfo.name}`, 20, 60);
+    doc.text(`Roll No: ${resultData.studentInfo.rollNo}`, 20, 70);
+    doc.text(`Program: ${resultData.studentInfo.course}`, 20, 80);
+    doc.text(`Class: ${resultData.studentInfo.class}`, 20, 90);
+
+    // Table
+    const tableColumn = ["Subject", "Obtained", "Max", "Grade"];
+    const tableRows = resultData.subjectResults.map(sub => [
+      sub.subject, sub.obtained.toString(), sub.max.toString(), sub.grade
+    ]);
+    tableRows.push(["TOTAL", resultData.totalObtained.toString(), resultData.totalMax.toString(), resultData.overallGrade]);
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 100,
+      theme: 'grid',
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255], fontStyle: 'bold' },
+      alternateRowStyles: { fillColor: [240, 240, 240] }
+    });
+
+    // Summary below table
+    const finalY = doc.lastAutoTable.finalY + 10;
+    doc.setFontSize(12);
+    doc.text(`Percentage: ${resultData.percentage}%`, 20, finalY);
+    doc.text(`Overall Grade: ${resultData.overallGrade}`, 20, finalY + 10);
+
+    // Footer
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text('This is a computer generated result. No signature is required.', 105, finalY + 30, { align: 'center' });
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 105, finalY + 40, { align: 'center' });
+
+    doc.save(`Result_${resultData.studentInfo.rollNo}.pdf`);
+  };
+
   const StepIndicator = ({ currentStep }) => (
     <div className="step-indicator">
       <div className={`step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
@@ -259,58 +186,113 @@ const Results = () => {
         
         <div className="result-container">
           <div className="result-form">
-            {/* Result Display */}
             {showResult && resultData && (
-              <div className="result-display" style={{ marginBottom: '2rem' }}>
-                <div className="student-info">
-                  <h3>{resultData.studentInfo.name}</h3>
-                  <p>Roll No: <strong>{resultData.studentInfo.rollNo}</strong></p>
-                  <p>Program: <strong>{resultData.studentInfo.course}</strong></p>
-                  <p>Class: <strong>{resultData.studentInfo.class}</strong></p>
-                </div>
-                
-                <table className="result-table">
-                  <thead>
-                    <tr>
-                      <th>Subject</th>
-                      <th>Obtained</th>
-                      <th>Max</th>
-                      <th>Grade</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {resultData.subjectResults.map((subject, index) => (
-                      <tr key={index}>
-                        <td>{subject.subject}</td>
-                        <td>{subject.obtained}</td>
-                        <td>{subject.max}</td>
-                        <td>{subject.grade}</td>
+              <div className="result-display-container">
+                <div ref={resultRef} className="result-display printable">
+                  <div className="result-header">
+                    <div className="university-info">
+                      <h2>Paradise University Pakistan</h2>
+                      <p>Official Examination Result</p>
+                    </div>
+                    <div className="exam-info">
+                      <h3>{resultData.studentInfo.examType}</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="student-info">
+                    <div className="info-row">
+                      <div className="info-item">
+                        <span className="label">Name:</span>
+                        <span className="value">{resultData.studentInfo.name}</span>
+                      </div>
+                      <div className="info-item">
+                        <span className="label">Roll No:</span>
+                        <span className="value">{resultData.studentInfo.rollNo}</span>
+                      </div>
+                    </div>
+                    <div className="info-row">
+                      <div className="info-item">
+                        <span className="label">Program:</span>
+                        <span className="value">{resultData.studentInfo.course}</span>
+                      </div>
+                      <div className="info-item">
+                        <span className="label">Class:</span>
+                        <span className="value">{resultData.studentInfo.class}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <table className="result-table">
+                    <thead>
+                      <tr>
+                        <th>Subject</th>
+                        <th>Obtained Marks</th>
+                        <th>Maximum Marks</th>
+                        <th>Grade</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-                
-                <div className="result-summary">
-                  <p>Total Marks: <strong>{resultData.totalMarks}</strong></p>
-                  <p>Percentage: <span className="percentage">{resultData.percentage}%</span></p>
-                  <p>Overall Grade: <span className="grade">{resultData.overallGrade}</span></p>
+                    </thead>
+                    <tbody>
+                      {resultData.subjectResults.map((subject, index) => (
+                        <tr key={index}>
+                          <td>{subject.subject}</td>
+                          <td>{subject.obtained}</td>
+                          <td>{subject.max}</td>
+                          <td className={`grade-${subject.grade}`}>{subject.grade}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>{resultData.totalObtained}</strong></td>
+                        <td><strong>{resultData.totalMax}</strong></td>
+                        <td><strong>{resultData.overallGrade}</strong></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  
+                  <div className="result-summary">
+                    <div className="summary-item">
+                      <span className="label">Total Marks:</span>
+                      <span className="value">{resultData.totalMarks}</span>
+                    </div>
+                    <div className="summary-item">
+                      <span className="label">Percentage:</span>
+                      <span className="value percentage">{resultData.percentage}%</span>
+                    </div>
+                    <div className="summary-item">
+                      <span className="label">Overall Grade:</span>
+                      <span className="value grade">{resultData.overallGrade}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="result-footer">
+                    <p>This is a computer generated result. No signature is required.</p>
+                    <p>Generated on: {new Date().toLocaleDateString()}</p>
+                  </div>
                 </div>
                 
-                <button className="btn btn-secondary" onClick={resetForm} style={{ marginTop: '1rem' }}>
-                  Check Another Result
-                </button>
+                <div className="result-actions">
+                  <button className="btn btn-print" onClick={handlePrint}>
+                    <FaPrint /> Print Result
+                  </button>
+                  <button className="btn btn-download" onClick={downloadPDF}>
+                    <FaDownload /> Download as PDF
+                  </button>
+                  <button className="btn btn-secondary" onClick={resetForm}>
+                    Check Another Result
+                  </button>
+                </div>
               </div>
             )}
             
             {!showResult && (
               <>
-                <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Check Your Result</h3>
-                <p style={{ marginBottom: '1.5rem', color: 'var(--gray)' }}>Follow the steps to view your examination results.</p>
+                <h3 className="form-title">Check Your Result</h3>
+                <p className="form-subtitle">Follow the steps to view your examination results.</p>
                 
-                {/* Step Indicator */}
                 <StepIndicator currentStep={step} />
                 
-                {/* Step 1: Select Examination */}
                 {step === 1 && (
                   <div className="form-step">
                     <div className="form-group">
@@ -326,14 +308,12 @@ const Results = () => {
                         <option value="annual">Annual Examination 2023</option>
                       </select>
                     </div>
-                    
-                    <button className="btn" onClick={handleExamSelect} style={{ width: '100%' }}>
-                      Next <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
+                    <button className="btn btn-primary" onClick={handleExamSelect}>
+                      Next <FaArrowRight />
                     </button>
                   </div>
                 )}
                 
-                {/* Step 2: Select Course */}
                 {step === 2 && (
                   <div className="form-step">
                     <div className="form-group">
@@ -373,29 +353,22 @@ const Results = () => {
                     </div>
                     
                     <div className="form-navigation">
-                      <button className="btn btn-secondary" onClick={() => setStep(1)} style={{ marginRight: '1rem' }}>
-                        <i className="fas fa-arrow-left" style={{ marginRight: '0.5rem' }}></i> Back
+                      <button className="btn btn-secondary" onClick={() => setStep(1)}>
+                        <FaArrowLeft /> Back
                       </button>
-                      <button className="btn" onClick={handleCourseSelect}>
-                        Next <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
+                      <button className="btn btn-primary" onClick={handleCourseSelect}>
+                        Next <FaArrowRight />
                       </button>
                     </div>
                   </div>
                 )}
                 
-                {/* Step 3: Enter Roll Number */}
                 {step === 3 && (
                   <div className="form-step">
-                    <div className="selected-details" style={{ 
-                      backgroundColor: '#f8f9fa', 
-                      padding: '1rem', 
-                      borderRadius: '5px', 
-                      marginBottom: '1.5rem' 
-                    }}>
+                    <div className="selected-details">
                       <p><strong>Examination:</strong> {exam === 'midterm' ? 'Mid-Term Examination 2023' : 'Annual Examination 2023'}</p>
                       <p><strong>Program:</strong> {course}</p>
                     </div>
-                    
                     <div className="form-group">
                       <label htmlFor="rollno">Enter Roll Number</label>
                       <input 
@@ -407,13 +380,12 @@ const Results = () => {
                         onChange={(e) => setRollNo(e.target.value)}
                       />
                     </div>
-                    
                     <div className="form-navigation">
-                      <button className="btn btn-secondary" onClick={() => setStep(2)} style={{ marginRight: '1rem' }}>
-                        <i className="fas fa-arrow-left" style={{ marginRight: '0.5rem' }}></i> Back
+                      <button className="btn btn-secondary" onClick={() => setStep(2)}>
+                        <FaArrowLeft /> Back
                       </button>
-                      <button className="btn" onClick={checkResult}>
-                        <i className="fas fa-search" style={{ marginRight: '0.5rem' }}></i> Check Result
+                      <button className="btn btn-primary" onClick={checkResult}>
+                        <FaSearch /> Check Result
                       </button>
                     </div>
                   </div>
