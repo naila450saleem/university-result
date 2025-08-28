@@ -7,9 +7,11 @@ const Header = ({ isMobileMenuOpen, toggleMobileMenu }) => {
     <header>
       <div className="container header-container">
         <div className="logo">
-          <img src={logo} alt="PUP Logo" className="logo-img" />
-          <span className="logo-text">Paradise University Pakistan</span>
-        </div>
+  <img src={logo} alt="PUP Logo" className="logo-img" />
+  <span className="logo-text desktop-text">Paradise University Pakistan</span>
+  <span className="logo-text mobile-text">PUP</span>
+</div>
+
         
         <nav>
           <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
