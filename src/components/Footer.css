@@ -1,0 +1,195 @@
+.footer {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  color: #fff;
+  padding: 4rem 0 1.5rem;
+  margin-top: 30px;
+  border-top: 4px solid #4299e1;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 3.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-links {
+  margin-left: 5rem;   /* ✅ Quick Links ko thoda push karo */
+}
+
+/* About */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-logo-img {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 6px rgba(66, 153, 225, 0.3);
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #fff, #bee3f8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-about p {
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Quick Links */
+.footer-links h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.footer-links a {
+  color: #cbd5e0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.footer-links a svg {
+  width: 16px;
+  color: #4299e1;
+}
+
+/* Contact */
+.footer-contact h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-contact li {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-contact li svg {
+  color: #4299e1;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.footer-contact span {
+  opacity: 0.85;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Social Icons */
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem; 
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  color: #fff !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+ 
+}
+
+.social-links a:hover {
+  background: var(--secondary);
+  color: #fff;   /* ✅ icon white on hover */
+  border-color: var(--secondary);
+  transform: translateY(-3px);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  color: #fff;             /* footer text white */
+  margin: 0;
+}
+
+.footer-bottom .heart {
+  color: #ff6b6b;          /* ❤️ Red heart */
+  margin: 0 4px;
+}
+
+.footer-bottom .dev-name {
+  font-weight: 600;
+  color: #facc15;           /* Golden */
+  letter-spacing: 0.5px;
+}
+
+.footer-bottom .dev-name:hover {
+  color: #fde047;           /* Lighter golden hover */
+  text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+}
+
