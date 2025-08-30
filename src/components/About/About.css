@@ -41,6 +41,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
 }
 
 .about-text h3 {
@@ -55,6 +56,34 @@
   margin-bottom: 1rem;
   color: var(--text-light);
 }
+
+.why-choose-list {
+  list-style: none; /* Remove default bullets */
+  padding: 0;
+  margin: 0;
+}
+
+.why-choose-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  background: #f5f7fa;  /* Light background for each item */
+  padding: 1rem 1.2rem;
+  border-left: 4px solid #0073e6; /* Highlight color bar */
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.why-choose-list li:hover {
+  transform: translateY(-2px); /* Subtle hover effect */
+}
+
+.why-choose-list li strong {
+  color: #0073e6; /* Highlighted title */
+  font-weight: 600;
+}
+
 
 /* Features inside About */
 .features {

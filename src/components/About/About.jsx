@@ -57,12 +57,13 @@ const About = () => {
             </div>
          <div className="about-text">
   <h3>Why Choose Us?</h3>
-  <ul className="why-choose-list">
-    <li>🔬 <strong>Modern Facilities</strong> – Well-equipped labs, a vast library, and advanced learning resources.</li>
-    <li>🏆 <strong>Holistic Development</strong> – Sports, arts, and cultural programs to nurture talent.</li>
-    <li>💼 <strong>Career Support</strong> – Internships, career counseling, and strong industry partnerships.</li>
-    <li>🌍 <strong>Inclusive Environment</strong> – Safe, supportive, and inspiring campus life for all students.</li>
-  </ul>
+<ul className="why-choose-list">
+  <li><strong>Modern Facilities</strong> – Well-equipped labs, a vast library, and advanced learning resources.</li>
+  <li><strong>Holistic Development</strong> – Sports, arts, and cultural programs to nurture talent.</li>
+  <li><strong>Career Support</strong> – Internships, career counseling, and strong industry partnerships.</li>
+  <li><strong>Inclusive Environment</strong> – Safe, supportive, and inspiring campus life for all students.</li>
+</ul>
+
 </div>
 
           </div>
