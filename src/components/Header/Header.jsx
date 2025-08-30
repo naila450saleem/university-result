@@ -1,6 +1,7 @@
 // components/Header.js
 import React from 'react';
-import logo from '../assets/logo1.jpg'; // <-- import your logo from assets
+import './Header.css';
+import logo from '../../assets/logo1.jpg'; // <-- import your logo from assets
 
 const Header = ({ isMobileMenuOpen, toggleMobileMenu }) => {
   return (

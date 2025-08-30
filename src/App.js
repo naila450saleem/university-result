@@ -1,11 +1,11 @@
 // App.js
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Results from './components/Results';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Header from './components/Header/Header';
+import Hero from './components/Hero/Hero';
+import About from './components/About/About';
+import Results from './components/Results/Results';
+import Contact from './components/Contact/Contact';
+import Footer from './components/Footer/Footer';
 import './App.css';
 
 function App() {

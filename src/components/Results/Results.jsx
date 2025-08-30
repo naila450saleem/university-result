@@ -1,10 +1,11 @@
 // components/Results.jsx
 import React, { useState, useRef } from 'react';
-import { studentDatabase } from '../data/studentDatabase';
-import resultImage from '../assets/5.jpg';
+import { studentDatabase } from '../../data/studentDatabase';
+import resultImage from '../../assets/5.jpg';
 import { FaPrint, FaDownload, FaArrowLeft, FaArrowRight, FaSearch } from 'react-icons/fa';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import './Results.css';
 
 const Results = () => {
   const [exam, setExam] = useState('');

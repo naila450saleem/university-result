@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImage from '../assets/hero.jpg';
+import heroImage from '../../assets/hero.jpg';
 import './Hero.css';
 
 const Hero = () => {
@@ -7,7 +7,7 @@ const Hero = () => {
     <section
       className="hero"
       id="home"
-      style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${heroImage})` }}
+      style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${heroImage})` }}
     >
       {/* Text content */}
       <div className=" hero-content">

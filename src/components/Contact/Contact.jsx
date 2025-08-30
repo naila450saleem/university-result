@@ -1,5 +1,6 @@
 // components/Contact.js
 import React, { useState } from 'react';
+import './Contact.css';
 // Font Awesome React component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

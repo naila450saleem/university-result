@@ -1,0 +1,116 @@
+/* About Section */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 30px;
+  background-color: #e9e6ed;
+}
+
+.about-image {
+  border-radius: none;
+  overflow: hidden;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+.about-image:hover img {
+  transform: scale(1.03);
+}
+
+.about-text h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.about-text p {
+  margin-bottom: 1.5rem;
+  color: var(--text-light);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.feature-icon {
+  color: var(--secondary);
+  font-size: 1.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-text h3 { font-size: 1.5rem; }
+  .about-text p { font-size: 1rem; }
+  .features { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .about-text h3 { font-size: 1.25rem; }
+  .about-text p { font-size: 0.9rem; }
+}
+
+
+.about-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-row {
+  display: flex;
+  align-items: stretch;   /* images ki height equal ho jaye */
+}
+
+.about-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.about-image {
+  flex: 1.16;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* image zoom/cover kar ke full area le legi */
+  display: block;
+}
+
+.about-text {
+  flex: 1;
+  padding: 40px;   /* text ke liye spacing */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-text h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.about-text p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
