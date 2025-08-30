@@ -30,8 +30,8 @@ const Footer = () => {
           {/* About Section */}
           <div className="footer-about">
             <div className="footer-logo">
-              <div className="footer-logo-img">PU</div>
-              <span className="logo-text">Paradise University</span>
+              <div className="footer-logo-img">PUP</div>
+              <span className="logo-text">Paradise University Pakistan</span>
             </div>
             <p>
               Paradise University prepares students for global opportunities with strong academic and ethical foundations.
@@ -58,11 +58,11 @@ const Footer = () => {
             <ul>
               <li>
                 <FontAwesomeIcon icon={faMapMarkerAlt} />
-                <span>123 Education Street, Academic District, Paradise City</span>
+                <span>98 Qarbath chowk bediyan road Lahore, Pakistan</span>
               </li>
               <li>
                 <FontAwesomeIcon icon={faPhone} />
-                <span>+92 321 1234567</span>
+                <span>+92 302 1419588</span>
               </li>
               <li>
                 <FontAwesomeIcon icon={faEnvelope} />

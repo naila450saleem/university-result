@@ -55,7 +55,7 @@ const Contact = () => {
             <div className="contact-card">
   <h3><i className="fas fa-phone-alt"></i> Helpline (24/7)</h3>
   <p>+92 423 8595863 / 5 (Office)</p>
-  <p>+92 311 4836256 (Principal) </p>
+  <p>+92 302 1419588 (------) </p>
 </div>
 
             

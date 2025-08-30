@@ -27,6 +27,10 @@ const About = () => {
                 environment that fosters academic excellence, character development, and
                 lifelong learning.
               </p>
+              <p>Over the years, we have empowered thousands of students with knowledge, 
+                values, and confidence to achieve their dreams. With a strong commitment 
+                to innovation and inclusivity, Paradise University continues to shape future leaders 
+                for a better tomorrow.</p>
             </div>
           </div>
 
@@ -42,6 +46,7 @@ const About = () => {
                 students to meet the challenges of an ever-changing world while
                 maintaining strong moral values and social responsibility.
               </p>
+              <p>We strive to inspire innovation, leadership, and a lifelong passion for learning in every student.</p>
             </div>
           </div>
 
@@ -50,14 +55,16 @@ const About = () => {
             <div className="about-image">
               <img src={aboutImage3} alt="Library" />
             </div>
-            <div className="about-text">
-              <h3>Why Choose Us?</h3>
-              <p>
-                Our University offers modern labs, a huge library, sports facilities, and
-                arts programs designed to give students a well-rounded educational
-                experience.
-              </p>
-            </div>
+         <div className="about-text">
+  <h3>Why Choose Us?</h3>
+  <ul className="why-choose-list">
+    <li>🔬 <strong>Modern Facilities</strong> – Well-equipped labs, a vast library, and advanced learning resources.</li>
+    <li>🏆 <strong>Holistic Development</strong> – Sports, arts, and cultural programs to nurture talent.</li>
+    <li>💼 <strong>Career Support</strong> – Internships, career counseling, and strong industry partnerships.</li>
+    <li>🌍 <strong>Inclusive Environment</strong> – Safe, supportive, and inspiring campus life for all students.</li>
+  </ul>
+</div>
+
           </div>
         </div>
       </div>

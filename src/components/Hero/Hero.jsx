@@ -13,7 +13,7 @@ const Hero = () => {
       <div className=" hero-content">
         <h1>Excellence in Education <br/>Since 1995</h1>
         <p>
-          Nurturing young minds to become responsible global citizens through quality <br/>education and holistic development.
+          Nurturing young minds to become responsible global citizens through quality education and holistic development.
         </p>
         <div className="hero-buttons">
           <a href="#results" className="btn">Check Results</a>
